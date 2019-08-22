@@ -1,0 +1,129 @@
+int hp1=A7;
+ int h1 =0;
+ int hp2=A3;
+ int h2=0;
+ int hp3=A4;
+ int h3 =0;
+ int hp4=A5;
+ int h4=0;
+ int motorlefta = 8;
+ int motorleftb = 9;
+ int motorrighta = 18;
+ int motorrightb = 19;
+ char c;
+ int d=5;
+void setup()
+{
+  pinMode(h1,INPUT);
+  pinMode(h2,INPUT);
+  pinMode(h3,INPUT);
+  pinMode(h4,INPUT);
+  pinMode(motorlefta, OUTPUT);
+  pinMode(motorrighta, OUTPUT);
+  pinMode(motorleftb, OUTPUT);
+  pinMode(motorrightb, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  h1=analogRead(hp1);
+  h2=analogRead(hp2);
+  h3=analogRead(hp3);
+  h4=analogRead(hp4); 
+  if (h1<512)
+  {
+    Serial.println("A");
+     digitalWrite(motorlefta, HIGH);
+     digitalWrite(motorleftb, LOW);
+     digitalWrite(motorrighta, HIGH);
+     digitalWrite(motorrightb, LOW); 
+    d=5; 
+  }
+ 
+   
+ else if (h2<512)
+  {Serial.println("B");
+     digitalWrite(motorlefta, LOW);
+     digitalWrite(motorleftb, HIGH);
+     digitalWrite(motorrighta, LOW);
+     digitalWrite(motorrightb, HIGH);
+    d=5; 
+  }
+  
+   
+ else if (h3<512)
+  {Serial.println("C");
+    //turn left
+     digitalWrite(motorlefta, LOW);
+     digitalWrite(motorleftb, HIGH);
+     digitalWrite(motorrighta, HIGH);
+     digitalWrite(motorrightb, LOW); 
+    d=5; 
+  }
+   
+ else if (h4<512)
+  {Serial.println("D");
+     //turn right
+     digitalWrite(motorlefta, HIGH);
+     digitalWrite(motorleftb, LOW);    
+     digitalWrite(motorrighta, LOW);
+     digitalWrite(motorrightb, HIGH);
+     d=5;
+  }
+  
+   else if (d==5)
+  {
+  Serial.println('Z');
+ digitalWrite(motorlefta, LOW);
+ digitalWrite(motorleftb, LOW);        
+ digitalWrite(motorrighta, LOW);
+ digitalWrite(motorrightb, LOW);
+  }
+  if (Serial.available()>0)
+  {  d=0;  
+    c =Serial.read();  
+  if(c=='f')
+    {  
+       Serial.println("ANURAg");
+       digitalWrite(motorlefta, HIGH);
+       digitalWrite(motorleftb, LOW);
+       digitalWrite(motorrighta, HIGH);
+       digitalWrite(motorrightb, LOW);
+    }
+  else if(c=='b')
+    {
+        Serial.println("shyam");
+        digitalWrite(motorlefta, LOW);
+        digitalWrite(motorleftb, HIGH);
+        digitalWrite(motorrighta, LOW);
+        digitalWrite(motorrightb, HIGH);
+    }
+    else if(c=='s')
+    {
+        Serial.println("pisharody");    
+        digitalWrite(motorlefta, LOW);
+        digitalWrite(motorleftb, LOW);        
+        digitalWrite(motorrighta, LOW);
+        digitalWrite(motorrightb, LOW);
+    }
+    //turn_left();
+    else if(c=='l')
+    {
+        digitalWrite(motorlefta, LOW);
+        digitalWrite(motorleftb, HIGH);
+        digitalWrite(motorrighta, HIGH);
+        digitalWrite(motorrightb, LOW);
+    }
+    //turn_right();
+    else if(c=='r')
+    {
+        digitalWrite(motorlefta, HIGH);
+        digitalWrite(motorleftb, LOW);    
+        digitalWrite(motorrighta, LOW);
+        digitalWrite(motorrightb, HIGH);
+    }
+ Serial.println(c);
+  }
+  
+}
